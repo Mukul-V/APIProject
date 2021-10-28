@@ -7,6 +7,8 @@ public class Order {
 	public String orderId;
 	public int quantity;
 	
+	public Order() {}
+	
 	public Order(String orderId, String productId, int quantity) {
 		this.orderId=orderId;
 		this.quantity=quantity;

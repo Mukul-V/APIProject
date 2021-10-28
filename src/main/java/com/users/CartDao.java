@@ -55,7 +55,6 @@ public class CartDao implements Helper{
 	
 	 public static boolean isPresentInCart(String username, String productId) throws ClassNotFoundException, SQLException {
 		 boolean result=false;
-		 //Cart cartItem=null;
 		 Connection conn=db.createConnection();
 		 String fetchCartItem= GetCartItem;
 		 try {
@@ -65,7 +64,6 @@ public class CartDao implements Helper{
 			ResultSet rs=st.executeQuery();
 			
 			while(rs.next()) {
-			//	cartItem=new Cart(rs.getString(Username), rs.getString(ProductId), Integer.parseInt(rs.getString(Quantity)));
 				result=true;
 			}
 		 }catch(Exception e) {
@@ -163,15 +161,14 @@ public class CartDao implements Helper{
 		return cartItem;
 	}
 	
-	public static boolean changeQuantity(String username, String productId, int quantity) throws ClassNotFoundException, SQLException{
+	public static boolean increaseQuantity(String username, String productId) throws ClassNotFoundException, SQLException{
 		boolean result=false;
 		Connection conn=db.createConnection();
-		String fetchCart= QuantityStatement;
+		String fetchCart= IncrementQuantity;
 		try {
 			PreparedStatement st=conn.prepareStatement(fetchCart);
-			st.setInt(1, quantity);
-			st.setString(2, username);
-			st.setString(3, productId);
+			st.setString(1, username);
+			st.setString(2, productId);
 			int rs= st.executeUpdate();
 			
 			if(rs>0) {
@@ -184,5 +181,24 @@ public class CartDao implements Helper{
 		conn.close();
 		return result;
 	}
-	
+
+	public static boolean decreaseQuantity(String username, String productId) throws ClassNotFoundException, SQLException{
+		boolean result=false;
+		Connection conn=db.createConnection();
+		String fetchCart= DecrementQuantity;
+		try {
+			PreparedStatement st=conn.prepareStatement(fetchCart);
+			st.setString(1, username);
+			st.setString(2, productId);
+			int rs= st.executeUpdate();
+			
+			if(rs>0) {
+				result=true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		conn.close();
+		return result;
+	}
 }

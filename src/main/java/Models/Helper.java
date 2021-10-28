@@ -17,10 +17,12 @@ public interface Helper {
 	final String GetCartItem="select * from cart where username=? and productId=?";
 	final String GetCartItemsCount=" select count(*) as total from cart where username=?";
 	final String GetCartItemCount="select quantity from cart where username=? and productId=?";
-	final String QuantityStatement="update cart set quantity=? where username=? and productId=?";
+	final String QuantityStatement="update cart set quantity =? where username=? and productId=?";
 	final String AddToCart="insert into cart values(?, ?, ?);";
 	final String RemoveFromCart="delete from cart where username=? and productId=?";
 	
+	final String IncrementQuantity="update cart set quantity=quantity+1 where username=? and productId=?";
+	final String DecrementQuantity="update cart set quantity=quantity-1 where username=? and productId=?";
 	final String ProductId="productId";
 	final String Total="total";
 	final String CartHandle="cartHandle";
